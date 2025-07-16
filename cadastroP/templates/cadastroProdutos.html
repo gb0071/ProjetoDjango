@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Produtos</title>
+    
+    {# Não precisamos mais do {% load static %} nem do link <link rel="stylesheet"> aqui #}
+    {# porque o CSS estará diretamente abaixo #}
+
+    <style>
+        /*
+         * Estilos CSS para o formulário de cadastro de produtos
+         * Tema: Cinza e Branco (clean e moderno)
+         * Este CSS está embutido diretamente no HTML.
+         */
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fonte moderna e limpa */
+            background-color: #F0F2F5; /* Um cinza muito claro para o fundo da página, quase branco */
+            margin: 0;
+            padding: 20px;
+            display: flex; /* Usado para centralizar o conteúdo */
+            justify-content: center; /* Centraliza horizontalmente */
+            align-items: flex-start; /* Alinha o conteúdo ao topo da tela */
+            min-height: 100vh; /* Garante que o body ocupe toda a altura da viewport */
+            box-sizing: border-box; /* Inclui padding e borda no cálculo do tamanho do elemento */
+            color: #333; /* Cor de texto padrão para boa legibilidade */
+        }
+
+        .container {
+            background-color: #FFFFFF; /* Fundo branco puro para o contêiner do formulário */
+            padding: 30px;
+            border-radius: 8px; /* Cantos levemente arredondados */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* Sombra suave para profundidade */
+            width: 100%;
+            max-width: 600px; /* Limita a largura máxima do formulário para melhor leitura */
+            margin-top: 50px; /* Espaçamento do topo da página */
+            border: 1px solid #E0E0E0; /* Borda cinza clara para definir o contêiner */
+        }
+
+        h1 {
+            color: #444; /* Um cinza um pouco mais escuro para o título */
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2em; /* Tamanho do título */
+            font-weight: 600; /* Peso da fonte para o título */
+        }
+
+        .form-group {
+            margin-bottom: 20px; /* Espaçamento entre os grupos de formulário (label + input) */
+        }
+
+        label {
+            display: block; /* Faz a label ocupar sua própria linha */
+            margin-bottom: 8px; /* Espaçamento abaixo da label */
+            color: #555; /* Cinza médio para as labels */
+            font-weight: 500; /* Peso da fonte para as labels */
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="url"],
+        textarea,
+        select {
+            width: calc(100% - 22px); /* Ocupa quase 100% da largura, descontando padding e borda */
+            padding: 10px;
+            border: 1px solid #CCC; /* Borda cinza para os campos de entrada */
+            border-radius: 4px; /* Cantos arredondados para os campos */
+            font-size: 16px;
+            box-sizing: border-box; /* Inclui padding e borda no tamanho total do elemento */
+            color: #333; /* Cor do texto dentro dos campos */
+            background-color: #F8F8F8; /* Fundo levemente cinza para os campos, dando uma textura */
+        }
+
+        textarea {
+            resize: vertical; /* Permite que o usuário redimensione a altura do textarea */
+            min-height: 80px; /* Altura mínima para o textarea */
+        }
+
+        /* Estilos para os campos quando estão em foco (selecionados) */
+        input:focus,
+        textarea:focus,
+        select:focus {
+            border-color: #888; /* Borda cinza mais escura no foco */
+            outline: none; /* Remove o outline padrão do navegador */
+            box-shadow: 0 0 0 3px rgba(150, 150, 150, 0.2); /* Sombra cinza no foco para destaque */
+            background-color: #FFF; /* Fundo branco no foco */
+        }
+
+        .btn-submit {
+            display: block; /* Faz o botão ocupar sua própria linha */
+            width: 100%; /* Botão ocupa toda a largura disponível */
+            padding: 12px 20px;
+            background-color: #666; /* Cor de fundo cinza escuro para o botão */
+            color: white; /* Cor do texto do botão */
+            border: none; /* Remove a borda padrão do botão */
+            border-radius: 5px; /* Cantos arredondados para o botão */
+            font-size: 18px;
+            cursor: pointer; /* Muda o cursor para indicar que é clicável */
+            transition: background-color 0.3s ease, transform 0.2s ease; /* Transição suave para hover */
+            margin-top: 20px; /* Espaçamento superior */
+            font-weight: 600; /* Peso da fonte do botão */
+            letter-spacing: 0.5px; /* Espaçamento entre letras para o botão */
+        }
+
+        .btn-submit:hover {
+            background-color: #555; /* Cinza um pouco mais escuro no hover */
+            transform: translateY(-2px); /* Efeito sutil de levantar o botão no hover */
+        }
+
+        a {
+            color: #777; /* Cor cinza para links */
+            text-decoration: none; /* Remove o sublinhado padrão do link */
+            display: block; /* Faz o link ocupar sua própria linha */
+            text-align: center; /* Centraliza o texto do link */
+            margin-top: 20px; /* Espaçamento superior */
+            font-size: 0.95em;
+        }
+
+        a:hover {
+            text-decoration: underline; /* Adiciona sublinhado no hover */
+            color: #555; /* Cinza mais escuro no hover do link */
+        }
+
+        /* * Media Queries para Responsividade 
+         * Ajusta o layout para telas menores (ex: celulares)
+         */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px; /* Reduz o padding do body em telas pequenas */
+            }
+            .container {
+                padding: 20px; /* Reduz o padding do contêiner */
+                margin-top: 20px; /* Reduz a margem superior */
+                border-radius: 0; /* Remove a borda arredondada em telas pequenas para uma aparência "full-width" */
+                box-shadow: none; /* Remover sombra em telas pequenas */
+                border: none; /* Remover borda em telas pequenas */
+            }
+
+            input[type="text"],
+            input[type="number"],
+            input[type="url"],
+            textarea,
+            select {
+                width: 100%; /* Garante que os campos ocupem 100% da largura em telas pequenas */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Cadastro de Novo Produto</h1>
+
+        <form method="post">
+            {% csrf_token %} 
+
+            <div class="form-group">
+                <label for="nomeProduto">Nome do Produto:</label>
+                <input type="text" id="nomeProduto" name="nomeProduto" required>
+            </div>
+
+            <div class="form-group">
+                <label for="descricaoProduto">Descrição:</label>
+                <textarea id="descricaoProduto" name="descricaoProduto" rows="4"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="precoProduto">Preço:</label>
+                <input type="number" id="precoProduto" name="precoProduto" step="0.01" required>
+            </div>
+
+            <div class="form-group">
+                <label for="quantidadeProduto">Quantidade em Estoque:</label>
+                <input type="number" id="quantidadeProduto" name="quantidadeProduto" required>
+            </div>
+
+            <div class="form-group">
+                <label for="categoriaProduto">Categoria:</label>
+                <select id="categoriaProduto" name="categoriaProduto">
+                    <option value="">Selecione uma categoria</option>
+                    <option value="eletronicos">Eletrônicos</option>
+                    <option value="roupas">Roupas</option>
+                    <option value="alimentos">Alimentos</option>
+                    <option value="livros">Livros</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="imagemProduto">URL da Imagem:</label>
+                <input type="url" id="imagemProduto" name="imagemProduto">
+            </div>
+
+            <button type="submit" class="btn-submit">Cadastrar Produto</button>
+        </form>
+
+        <p><a href="{% url 'cadastrar_produto' %}">Ver Lista de Produtos</a></p>
+    </div>
+</body>
+</html>

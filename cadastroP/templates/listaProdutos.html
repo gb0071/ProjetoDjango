@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Produtos</title>
+    
+    <style>
+        /*
+         * Estilos CSS para a lista de produtos
+         * Tema: Cinza e Branco (clean e moderno)
+         * Este CSS está embutido diretamente no HTML.
+         */
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #F0F2F5;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            box-sizing: border-box;
+            color: #333;
+        }
+
+        .container {
+            background-color: #FFFFFF;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            width: 100%;
+            max-width: 900px; /* Um pouco mais largo para a tabela */
+            margin-top: 50px;
+            border: 1px solid #E0E0E0;
+        }
+
+        h1 {
+            color: #444;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2em;
+            font-weight: 600;
+        }
+
+        .product-table {
+            width: 100%;
+            border-collapse: collapse; /* Colapsa bordas da tabela */
+            margin-top: 20px;
+        }
+
+        .product-table th,
+        .product-table td {
+            border: 1px solid #E0E0E0; /* Borda da célula */
+            padding: 12px 15px;
+            text-align: left;
+        }
+
+        .product-table th {
+            background-color: #F8F8F8; /* Fundo cinza claro para o cabeçalho */
+            color: #555;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9em;
+        }
+
+        .product-table tbody tr:nth-child(even) {
+            background-color: #FDFDFD; /* Listras leves para legibilidade */
+        }
+
+        .product-table tbody tr:hover {
+            background-color: #F0F0F0; /* Fundo cinza mais escuro no hover da linha */
+        }
+
+        .product-table .actions {
+            text-align: center; /* Centraliza ações */
+            white-space: nowrap; /* Evita que os botões quebrem linha */
+        }
+
+        .btn-action {
+            display: inline-block;
+            padding: 6px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9em;
+            margin: 0 5px;
+            transition: background-color 0.3s ease;
+            text-decoration: none; /* Remover sublinhado de links que atuam como botões */
+            color: white; /* Texto branco para os botões */
+        }
+
+        .btn-edit {
+            background-color: #6c757d; /* Cinza para editar */
+        }
+
+        .btn-edit:hover {
+            background-color: #5a6268;
+        }
+
+        .btn-delete {
+            background-color: #dc3545; /* Vermelho para deletar */
+        }
+
+        .btn-delete:hover {
+            background-color: #c82333;
+        }
+
+        .btn-add-new {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #28a745; /* Verde para adicionar novo */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-decoration: none; /* Remover sublinhado de links */
+            margin-bottom: 20px; /* Espaço abaixo do botão */
+        }
+
+        .btn-add-new:hover {
+            background-color: #218838;
+        }
+
+        a {
+            color: #777; /* Cor cinza para links gerais */
+            text-decoration: none;
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.95em;
+        }
+
+        a:hover {
+            text-decoration: underline;
+            color: #555;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            .container {
+                padding: 20px;
+                margin-top: 20px;
+                border-radius: 0;
+                box-shadow: none;
+                border: none;
+            }
+            .product-table th,
+            .product-table td {
+                padding: 8px 10px; /* Reduz padding em telas pequenas */
+                font-size: 0.85em; /* Reduz tamanho da fonte da tabela */
+            }
+            .product-table thead {
+                display: none; /* Esconde o cabeçalho da tabela em telas pequenas */
+            }
+            .product-table, .product-table tbody, .product-table tr, .product-table td {
+                display: block; /* Faz as células se comportarem como blocos */
+                width: 100%;
+            }
+            .product-table tr {
+                margin-bottom: 15px;
+                border: 1px solid #E0E0E0;
+                border-radius: 5px;
+                background-color: #FFFFFF;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            }
+            .product-table td {
+                text-align: right; /* Alinha o conteúdo à direita */
+                padding-left: 50%; /* Espaço para a label */
+                position: relative;
+            }
+            .product-table td::before {
+                content: attr(data-label); /* Usa o atributo data-label como pseudo-elemento */
+                position: absolute;
+                left: 10px;
+                width: calc(50% - 20px);
+                text-align: left;
+                font-weight: bold;
+                color: #666;
+            }
+            .product-table .actions {
+                text-align: left;
+                padding-left: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Lista de Produtos Cadastrados</h1>
+
+        {# Botão para adicionar um novo produto #}
+        <a href="{% url 'cadastrar_produto' %}" class="btn-add-new">Adicionar Novo Produto</a>
+
+        <table class="product-table">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Preço</th>
+                    <th>Quantidade</th>
+                    <th>Categoria</th>
+                    <th class="actions">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {# Exemplo de dados estáticos. Em um projeto Django real, você iteraria sobre uma lista de objetos 'produto' #}
+                {# Ex: {% for produto in produtos %} #}
+                <tr>
+                    <td data-label="Nome">Smartphone X Pro</td>
+                    <td data-label="Preço">R$ 2.500,00</td>
+                    <td data-label="Quantidade">15</td>
+                    <td data-label="Categoria">Eletrônicos</td>
+                    <td class="actions">
+                        <a href="#" class="btn-action btn-edit">Editar</a>
+                        <a href="#" class="btn-action btn-delete">Excluir</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td data-label="Nome">Camiseta Algodão Premium</td>
+                    <td data-label="Preço">R$ 79,90</td>
+                    <td data-label="Quantidade">120</td>
+                    <td data-label="Categoria">Roupas</td>
+                    <td class="actions">
+                        <a href="#" class="btn-action btn-edit">Editar</a>
+                        <a href="#" class="btn-action btn-delete">Excluir</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td data-label="Nome">Café Especial 500g</td>
+                    <td data-label="Preço">R$ 35,50</td>
+                    <td data-label="Quantidade">50</td>
+                    <td data-label="Categoria">Alimentos</td>
+                    <td class="actions">
+                        <a href="#" class="btn-action btn-edit">Editar</a>
+                        <a href="#" class="btn-action btn-delete">Excluir</a>
+                    </td>
+                </tr>
+                {# {% empty %} #}
+                {# <tr><td colspan="5" style="text-align: center;">Nenhum produto cadastrado.</td></tr> #}
+                {# {% endfor %} #}
+            </tbody>
+        </table>
+
+        {# Link de volta para a página de cadastro, caso precise #}
+        <p><a href="{% url 'cadastrar_produto' %}">Voltar para o Cadastro de Produtos</a></p>
+    </div>
+</body>
+</html>
+    
